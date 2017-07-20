@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.schaeffler.authplugin" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>AuthenticationPlugin</name>
+    <js-module name="AuthenticationPlugin" src="www/AuthenticationPlugin.js">
+        <clobbers target="cordova.plugins.AuthenticationPlugin" />
+    </js-module>
+
+  <!-- iOS plugin definition -->
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="AuthenticationPlugin">
+                <param name="ios-package" value="AuthenticationPlugin" />
+            </feature>
+        </config-file>
+        <source-file src="src/ios/AuthenticationPlugin.swift" />
+        <dependency id="cordova-plugin-add-swift-support" url="https://github.com/akofman/cordova-plugin-add-swift-support"/>
+        <!-- <framework src="src/ios/authorizationFramework.framework" custom="true" /> -->
+        <!-- <framework src="src/ios/Alamofire.framework" custom="true" /> -->
+        <!-- <framework src="src/ios/Fuzi.framework" custom="true" /> -->
+    </platform>
+
+    <!-- Windows plugin definition -->
+    <platform name="windows">
+        <config-file target="package.phone.appxmanifest" parent="/Package/Capabilities">
+            <Capability Name="sharedUserCertificates"/>
+        </config-file>
+         <config-file target="package.windows.appxmanifest" parent="/Package/Capabilities">
+            <Capability Name="sharedUserCertificates"/>
+        </config-file>
+        <config-file target="package.windows10.appxmanifest" parent="/Package/Capabilities">
+            <uap:Capability Name="sharedUserCertificates"/>
+        </config-file>
+        <js-module name="AuthenticationPluginProxy" src="src/windows/AuthenticationPluginProxy.js">
+            <merges target="" />
+        </js-module>
+      <framework src="src/windows/lib/AuthenticationComponent.csproj" custom="true" type="projectReference" versions="&lt;=8.1"/>
+    </platform>
+</plugin>
